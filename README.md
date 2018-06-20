@@ -7,7 +7,7 @@ In this lab, we'll practice applying gradient descent.  As we know gradient desc
 
 ### Setting up our initial regression line
 
-Once again, we'll take take a look at revenues of movies to predict revenue. 
+Once again, we'll take take a look at revenues of movies to predict revenue.
 
 
 ```python
@@ -125,7 +125,7 @@ def plot_table(headers, columns):
 
 ```python
 cost_chart = rss_values(budgets, revenues, scaled_m_values, b_value)
-if cost_chart: 
+if cost_chart:
     column_values = list(cost_chart.values())
     plot_table(headers = ['M values', 'RSS values'], columns=column_values)
 ```
@@ -170,7 +170,7 @@ So the `slope_at` function takes in our dataset, and returns the slope of the co
 
 ![](./tangent-lines.png)
 
-As you can see, it seems pretty accurate.  When the curve is steeper and downwards at $m = 6$, the slope is around -290,000.  And at $m = 1.3$ with our cost curve pointing upwards yet flatter, our slope is around 120,000. 
+As you can see, it seems pretty accurate.  When the curve is steeper and downwards at $m = 6$, the slope is around -290,000.  And at $m = 1.3$ with our cost curve pointing upwards yet flatter, our slope is around 120,000.
 
 ### Moving towards gradient descent
 
@@ -222,7 +222,7 @@ descent_steps
 
 # [{'m': 0, 'rss': 368964.16669999994, 'slope': -548316.9999998063},
 #  {'m': 0.5483169999998062, 'rss': 131437.9413767516, 'slope': -318023.86000024853},
-#  {'m': 0.8663408600000547,  'rss': 51531.31420747324, 'slope': -184453.83880040026}, 
+#  {'m': 0.8663408600000547,  'rss': 51531.31420747324, 'slope': -184453.83880040026},
 #  {'m': 1.050794698800455,  'rss': 24649.097944855268,  'slope': -106983.22650372575},
 #  {'m': 1.1577779253041809,  'rss': 15604.976802103287,  'slope': -62050.271372208954},
 #  {'m': 1.2198281966763898,  'rss': 12561.987166284125,  'slope': -35989.15739588847},
@@ -269,4 +269,4 @@ As you can see the slope converges towards a slope that better matches our data,
 
 ### Summary
 
-In this lesson, we learned some more about gradient descent.  We saw how gradient descent allows our function to improve to a regression line that better matches our data.  We see how to change our regression line, by looking at the Residual Sum of Squares related to current regression line. We update our regression line by looking at the rate of change of our RSS as we adjust our regression line in the right direction -- that is, the slope of our cost curve.  The larger the magnitude of our rate of change (or slope of our cost curve) the larger our step size.  This way, we take larger steps the further away we are from our minimizing our RSS, and take smaller steps as we converge towards our minimum RSS. 
+In this lesson, we learned some more about gradient descent.  We saw how gradient descent allows our function to improve to a regression line that better matches our data.  We see how to change our regression line, by looking at the Residual Sum of Squares related to current regression line. We update our regression line by looking at the rate of change of our RSS as we adjust our regression line in the right direction -- that is, the slope of our cost curve.  The larger the magnitude of our rate of change (or slope of our cost curve) the larger our step size.  This way, we take larger steps the further away we are from our minimizing our RSS, and take smaller steps as we converge towards our minimum RSS.
