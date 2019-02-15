@@ -40,7 +40,7 @@ def build_tangent_line(b, m, points, line_length = 5):
     rss_exact = curve_at_point['rss']
     rss_minus = rss_exact - slope * line_length
     rss_plus = rss_exact + slope * line_length
-    return {'x': [b_minus, b, b_plus], 'y': [rss_minus, curve_at_point['rss'], rss_plus], 'mode': 'lines+text', 'text': ['    slope:' + format(slope, '.2f')], 'textposition': 'right'}
+    return {'x': [b_minus, b, b_plus], 'y': [rss_minus, curve_at_point['rss'], rss_plus], 'mode': 'lines+text', 'text': ['    slope:' + format(slope, '.2f')], 'textposition': 'top right'}
 
 
 
