@@ -18,6 +18,16 @@ third_show = {'budget': 400, 'revenue': 700}
 shows = [first_show, second_show, third_show]
 ```
 
+
+```python
+# __SOLUTION__ 
+first_show = {'budget': 100, 'revenue': 275}
+second_show = {'budget': 200, 'revenue': 300}
+third_show = {'budget': 400, 'revenue': 700}
+
+shows = [first_show, second_show, third_show]
+```
+
 We can start with some values for an initial not-so-accurate regression line, $y = .6x + 133.33$.
 
 
@@ -30,6 +40,22 @@ revenues = list(map(lambda show: show['revenue'], shows))
 
 
 ```python
+def regression_line(x):
+    return .6*x + 133.33
+```
+
+
+```python
+# __SOLUTION__ 
+from linear_equations import build_regression_line
+
+budgets = list(map(lambda show: show['budget'], shows))
+revenues = list(map(lambda show: show['revenue'], shows))
+```
+
+
+```python
+# __SOLUTION__ 
 def regression_line(x):
     return .6*x + 133.33
 ```
@@ -62,6 +88,34 @@ regression_trace = m_b_trace(.6, 133.33, budgets)
 plot([data_trace, regression_trace])
 ```
 
+
+```python
+# __SOLUTION__ 
+def squared_error(x, y, m, b):
+    return (y - (m*x + b))**2
+
+def residual_sum_squares(x_values, y_values, m, b):
+    data_points = list(zip(x_values, y_values))
+    squared_errors = map(lambda data_point: squared_error(data_point[0], data_point[1], m, b), data_points)
+    return sum(squared_errors)
+```
+
+
+```python
+# __SOLUTION__ 
+from plotly.offline import iplot, init_notebook_mode
+from graph import plot, m_b_trace
+import plotly.graph_objs as go
+
+init_notebook_mode(connected=True)
+
+from graph import trace_values, plot
+
+data_trace = trace_values(budgets, revenues)
+regression_trace = m_b_trace(.6, 133.33, budgets)
+plot([data_trace, regression_trace])
+```
+
 ### Building a cost curve
 
 Now let's use the `residual_sum_squares` function to build a cost curve.  Keeping the $b$ value fixed at $133.33$, write a function called `rss_values`.  
@@ -77,6 +131,40 @@ def rss_values(x_values, y_values, m_values, b):
 
 
 ```python
+budgets = list(map(lambda show: show['budget'] ,shows))
+revenues = list(map(lambda show: show['revenue'] ,shows))
+initial_m_values = list(range(8, 19, 1))
+scaled_m_values = list(map(lambda initial_m_value: initial_m_value/10,initial_m_values))
+b_value = 133.33
+rss_values(budgets, revenues, scaled_m_values, b_value)
+
+# {'m_values': [0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8],
+#  'rss_values': [64693.76669999998,
+#   45559.96669999998,
+#   30626.166699999987,
+#   19892.36669999999,
+#   13358.5667,
+#   11024.766700000004,
+#   12890.96670000001,
+#   18957.166700000016,
+#   29223.36670000002,
+#   43689.566700000025,
+#   62355.76670000004]}
+
+```
+
+
+```python
+# __SOLUTION__ 
+from error import residual_sum_squares
+def rss_values(x_values, y_values, m_values, b):
+    rss_values = list(map(lambda m_value: residual_sum_squares(x_values, y_values, m_value, b), m_values))
+    return {'m_values': m_values, 'rss_values': rss_values}
+```
+
+
+```python
+# __SOLUTION__ 
 budgets = list(map(lambda show: show['budget'] ,shows))
 revenues = list(map(lambda show: show['revenue'] ,shows))
 initial_m_values = list(range(8, 19, 1))
@@ -130,6 +218,36 @@ if cost_chart:
     plot_table(headers = ['M values', 'RSS values'], columns=column_values)
 ```
 
+
+```python
+# __SOLUTION__ 
+from plotly.offline import iplot, init_notebook_mode
+from graph import plot
+import plotly.graph_objs as go
+
+init_notebook_mode(connected=True)
+
+def plot_table(headers, columns):
+    trace_cost_chart = go.Table(
+        header=dict(values=headers,
+                    line = dict(color='#7D7F80'),
+                    fill = dict(color='#a1c3d1'),
+                    align = ['left'] * 5),
+        cells=dict(values=columns,
+                   line = dict(color='#7D7F80'),
+                   fill = dict(color='#EDFAFF'),
+                   align = ['left'] * 5))
+    plot([trace_cost_chart])
+```
+
+
+```python
+# __SOLUTION__ 
+cost_chart = rss_values(budgets, revenues, scaled_m_values, b_value)
+column_values = list(cost_chart.values())
+plot_table(headers = ['M values', 'RSS values'], columns=column_values)
+```
+
 And let's plot this out using a a line chart.
 
 
@@ -145,6 +263,20 @@ cost_values = rss_values(budgets, revenues, scaled_m_values, 133.33)
 if cost_values:
     rss_trace = trace_values(cost_values['m_values'], cost_values['rss_values'], mode = 'lines')
     plot([rss_trace])
+```
+
+
+```python
+# __SOLUTION__ 
+from plotly.offline import iplot, init_notebook_mode
+init_notebook_mode(connected=True)
+from graph import plot, trace_values
+
+initial_m_values = list(range(1, 18, 1))
+scaled_m_values = list(map(lambda initial_m_value: initial_m_value/10,initial_m_values))
+cost_values = rss_values(budgets, revenues, scaled_m_values, 133.33)
+rss_trace = trace_values(cost_values['m_values'], cost_values['rss_values'], mode = 'lines')
+plot([rss_trace])
 ```
 
 ### Looking at the slope of our cost curve
@@ -163,6 +295,24 @@ slope_at(budgets, revenues, .6, 133.33333333333326)
 
 
 ```python
+slope_at(budgets, revenues, 1.6, 133.33333333333326)
+```
+
+
+```python
+# __SOLUTION__ 
+from helper import slope_at
+```
+
+
+```python
+# __SOLUTION__ 
+slope_at(budgets, revenues, .6, 133.33333333333326)
+```
+
+
+```python
+# __SOLUTION__ 
 slope_at(budgets, revenues, 1.6, 133.33333333333326)
 ```
 
@@ -188,10 +338,36 @@ def updated_m(m, learning_rate, cost_curve_slope):
     pass
 ```
 
+
+```python
+# __SOLUTION__ 
+from error import residual_sum_squares
+
+def updated_m(m, learning_rate, cost_curve_slope):
+    change_to_m = -1 * learning_rate * cost_curve_slope
+    return change_to_m + m 
+```
+
 This is what our function returns.
 
 
 ```python
+current_slope = slope_at(budgets, revenues, 1.7, 133.33333333333326)['slope']
+updated_m(1.7, .000001, current_slope)
+# 1.5343123333335096
+
+current_slope = slope_at(budgets, revenues, 1.534, 133.33333333333326)['slope']
+updated_m(1.534, .000001, current_slope)
+# 1.43803233333338
+
+current_slope = slope_at(budgets, revenues, 1.438, 133.33333333333326)['slope']
+updated_m(1.438, .000001, current_slope)
+# 1.3823523333332086
+```
+
+
+```python
+# __SOLUTION__ 
 current_slope = slope_at(budgets, revenues, 1.7, 133.33333333333326)['slope']
 updated_m(1.7, .000001, current_slope)
 # 1.5343123333335096
@@ -244,6 +420,49 @@ if descent_steps:
     plot([gradient_trace])
 ```
 
+
+```python
+# __SOLUTION__ 
+def gradient_descent(x_values, y_values, steps, b, learning_rate, current_m):
+    cost_curve = []
+    for i in range(steps):
+        current_cost_slope = slope_at(x_values, y_values, current_m, b)['slope']
+        current_rss = residual_sum_squares(x_values, y_values, current_m, b)
+        cost_curve.append({'m': current_m, 'rss': current_rss, 'slope': current_cost_slope})
+        current_m = updated_m(current_m, learning_rate, current_cost_slope)
+    return cost_curve
+```
+
+
+```python
+# __SOLUTION__ 
+descent_steps = gradient_descent(budgets, revenues, 12, 133.33, learning_rate = .000001, current_m = 0)
+descent_steps
+
+# [{'m': 0, 'rss': 368964.16669999994, 'slope': -548316.9999998063},
+#  {'m': 0.5483169999998062, 'rss': 131437.9413767516, 'slope': -318023.86000024853},
+#  {'m': 0.8663408600000547,  'rss': 51531.31420747324, 'slope': -184453.83880040026}, 
+#  {'m': 1.050794698800455,  'rss': 24649.097944855268,  'slope': -106983.22650372575},
+#  {'m': 1.1577779253041809,  'rss': 15604.976802103287,  'slope': -62050.271372208954},
+#  {'m': 1.2198281966763898,  'rss': 12561.987166284125,  'slope': -35989.15739588847},
+#  {'m': 1.2558173540722781,  'rss': 11538.008028425651, 'slope': -20873.711289696075},
+#  {'m': 1.2766910653619743,  'rss': 11193.357340315255,  'slope': -12106.752547970245},
+#  {'m': 1.2887978179099446,  'rss': 11077.310067278091,  'slope': -7021.916477824561},
+#  {'m': 1.295819734387769,  'rss': 11038.209831325046,  'slope': -4072.711557128059},
+#  {'m': 1.299892445944897,  'rss': 11025.020590634533,  'slope': -2362.172703124088},
+#  {'m': 1.302254618648021,  'rss': 11020.562895703,  'slope': -1370.0601677373925}]
+```
+
+
+```python
+# __SOLUTION__ 
+m_values = list(map(lambda step: step['m'],descent_steps))
+rss_result_values = list(map(lambda step: step['rss'], descent_steps))
+text_values = list(map(lambda step: 'cost curve slope: ' + str(step['slope']), descent_steps))
+gradient_trace = trace_values(m_values, rss_result_values, text=text_values)
+plot([gradient_trace])
+```
+
 Taking a look at a plot of our trace, you can get a nice visualization of how our gradient descent function works.  It starts far away with $m = 0$, and the step size is relatively large, as is the slope of the cost curve.  As the $m$ value updates such that it approaches a minimum of the RSS, the slope of the cost curve and the size of each step both decrease.     
 
 Remember that each of these steps indicates a change in our regression line's slope value towards a "fit" that more accurately matches our dataset.  Let's plot these various regression lines below, starting with our slope at 0 and moving from there.  
@@ -263,6 +482,23 @@ if descent_steps:
     m_values = list(map(lambda step: step['m'] ,descent_steps))
     regression_traces = list(map(lambda m: m_b_trace(m, 133.33, budgets, name = 'm:' + str(round(m, 2))), m_values))
     plot([data_trace, *regression_traces])
+```
+
+
+```python
+# __SOLUTION__ 
+from plotly.offline import iplot, init_notebook_mode
+from graph import plot, m_b_trace
+import plotly.graph_objs as go
+
+init_notebook_mode(connected=True)
+
+from graph import trace_values, plot
+
+data_trace = trace_values(budgets, revenues)
+m_values = list(map(lambda step: step['m'] ,descent_steps))
+regression_traces = list(map(lambda m: m_b_trace(m, 133.33, budgets, name = 'm:' + str(round(m, 2))), m_values))
+plot([data_trace, *regression_traces])
 ```
 
 As you can see the slope converges towards a slope that better matches our data, around m = 1.3.  You can isolate how the line changes clicking on the names of the lines to the right, which toggles the display of the respective lines.
