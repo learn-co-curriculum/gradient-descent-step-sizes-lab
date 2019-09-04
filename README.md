@@ -62,6 +62,18 @@ regression_trace = m_b_trace(.6, 133.33, budgets)
 plot([data_trace, regression_trace])
 ```
 
+
+<script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window.Plotly) {{require(['plotly'],function(plotly) {window.Plotly=plotly;});}}</script>
+
+
+
+<script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window.Plotly) {{require(['plotly'],function(plotly) {window.Plotly=plotly;});}}</script>
+
+
+
+<div id="090190c9-a5f7-4d06-9227-d2a48e8558f1" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("090190c9-a5f7-4d06-9227-d2a48e8558f1", [{"mode": "markers", "name": "data", "text": [], "x": [100, 200, 400], "y": [275, 300, 700], "type": "scatter", "uid": "1194cacc-cf3a-11e9-96bc-3af9d3ad3e0b"}, {"mode": "lines", "name": "line function", "x": [100, 200, 400], "y": [193.33, 253.33, 373.33000000000004], "type": "scatter", "uid": "1194cbe4-cf3a-11e9-a271-3af9d3ad3e0b"}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
+
+
 ### Building a cost curve
 
 Now let's use the `residual_sum_squares` function to build a cost curve.  Keeping the $b$ value fixed at $133.33$, write a function called `rss_values`.  
@@ -101,6 +113,24 @@ rss_values(budgets, revenues, scaled_m_values, b_value)
 
 ```
 
+
+
+
+    {'m_values': [0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8],
+     'rss_values': [64693.76669999998,
+      45559.96669999998,
+      30626.166699999987,
+      19892.36669999999,
+      13358.5667,
+      11024.766700000004,
+      12890.96670000001,
+      18957.166700000016,
+      29223.36670000002,
+      43689.566700000025,
+      62355.76670000004]}
+
+
+
 Plotly provides for us a table chart, and we can pass the values generated from our `rss_values` function to create a table.
 
 
@@ -125,11 +155,19 @@ def plot_table(headers, columns):
 ```
 
 
+<script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window.Plotly) {{require(['plotly'],function(plotly) {window.Plotly=plotly;});}}</script>
+
+
+
 ```python
 cost_chart = rss_values(budgets, revenues, scaled_m_values, b_value)
 column_values = list(cost_chart.values())
 plot_table(headers = ['M values', 'RSS values'], columns=column_values)
 ```
+
+
+<div id="782fbc3e-3c25-48e9-bfe4-fe102ab23b1c" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("782fbc3e-3c25-48e9-bfe4-fe102ab23b1c", [{"cells": {"align": ["left", "left", "left", "left", "left"], "fill": {"color": "#EDFAFF"}, "line": {"color": "#7D7F80"}, "values": [[0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8], [64693.76669999998, 45559.96669999998, 30626.166699999987, 19892.36669999999, 13358.5667, 11024.766700000004, 12890.96670000001, 18957.166700000016, 29223.36670000002, 43689.566700000025, 62355.76670000004]]}, "header": {"align": ["left", "left", "left", "left", "left"], "fill": {"color": "#a1c3d1"}, "line": {"color": "#7D7F80"}, "values": ["M values", "RSS values"]}, "type": "table", "uid": "2c6127ba-cf3a-11e9-81a0-3af9d3ad3e0b"}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
+
 
 And let's plot this out using a a line chart.
 
@@ -146,6 +184,14 @@ rss_trace = trace_values(cost_values['m_values'], cost_values['rss_values'], mod
 plot([rss_trace])
 ```
 
+
+<script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window.Plotly) {{require(['plotly'],function(plotly) {window.Plotly=plotly;});}}</script>
+
+
+
+<div id="73de0e1c-75b1-422c-81c3-c31732b06e74" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("73de0e1c-75b1-422c-81c3-c31732b06e74", [{"mode": "lines", "name": "data", "text": [], "x": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7], "y": [316230.36669999996, 267696.56669999997, 223362.76669999998, 183228.96669999996, 147295.16669999994, 115561.36669999997, 88027.56669999998, 64693.76669999998, 45559.96669999998, 30626.166699999987, 19892.36669999999, 13358.5667, 11024.766700000004, 12890.96670000001, 18957.166700000016, 29223.36670000002, 43689.566700000025], "type": "scatter", "uid": "516e8e46-cf3a-11e9-874c-3af9d3ad3e0b"}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
+
+
 ### Looking at the slope of our cost curve
 
 In this section, we'll work up to building a gradient descent function that automatically changes our step size.  To get you started, we'll provide a function called `slope_at` that calculates the slope of the cost curve at a given point on the cost curve.  Here it is in action:
@@ -161,15 +207,29 @@ slope_at(budgets, revenues, .6, 133.33333333333326)
 ```
 
 
+
+
+    {'m': 0.6, 'slope': -296312.3333330441}
+
+
+
+
 ```python
 slope_at(budgets, revenues, 1.6, 133.33333333333326)
 ```
 
-So the `slope_at` function takes in our dataset, and returns the slope of the cost curve at that point.  So the numbers -296312 and 123877 reflect the slopes at the cost curve when m is .6 and 1.6 respectively.
+
+
+
+    {'m': 1.6, 'slope': 123687.66666691954}
+
+
+
+So the `slope_at` function takes in our dataset, and returns the slope of the cost curve at that point.  So the numbers -296312.33 and 123687.67 reflect the slopes at the cost curve when m is .6 and 1.6 respectively.
 
 ![](./tangent-lines.png)
 
-As you can see, it seems pretty accurate.  When the curve is steeper and downwards at $m = 6$, the slope is around -290,000.  And at $m = 1.3$ with our cost curve pointing upwards yet flatter, our slope is around 120,000. 
+As you can see, it seems pretty accurate.  When the curve is steeper and downwards at $m = 0.6$, the slope is around -290,000.  And at $m = 1.6$ with our cost curve pointing upwards yet flatter, our slope is around 120,000. 
 
 ### Moving towards gradient descent
 
@@ -204,6 +264,13 @@ current_slope = slope_at(budgets, revenues, 1.438, 133.33333333333326)['slope']
 updated_m(1.438, .000001, current_slope)
 # 1.3823523333332086
 ```
+
+
+
+
+    1.3823523333332086
+
+
 
 Take a careful look at how we use the `updated_m` function.  By using our updated value of $m$ we are quickly converging towards an optimal value of $m$.   
 
@@ -241,6 +308,46 @@ descent_steps
 ```
 
 
+
+
+    [{'m': 0, 'rss': 368964.16669999994, 'slope': -548316.9999998063},
+     {'m': 0.5483169999998062,
+      'rss': 131437.9413767516,
+      'slope': -318023.86000024853},
+     {'m': 0.8663408600000547,
+      'rss': 51531.31420747324,
+      'slope': -184453.83880040026},
+     {'m': 1.050794698800455,
+      'rss': 24649.097944855268,
+      'slope': -106983.22650372575},
+     {'m': 1.1577779253041809,
+      'rss': 15604.976802103287,
+      'slope': -62050.271372208954},
+     {'m': 1.2198281966763898,
+      'rss': 12561.987166284125,
+      'slope': -35989.15739588847},
+     {'m': 1.2558173540722781,
+      'rss': 11538.008028425651,
+      'slope': -20873.711289696075},
+     {'m': 1.2766910653619743,
+      'rss': 11193.357340315255,
+      'slope': -12106.752547970245},
+     {'m': 1.2887978179099446,
+      'rss': 11077.310067278091,
+      'slope': -7021.916477824561},
+     {'m': 1.295819734387769,
+      'rss': 11038.209831325046,
+      'slope': -4072.711557128059},
+     {'m': 1.299892445944897,
+      'rss': 11025.020590634533,
+      'slope': -2362.172703124088},
+     {'m': 1.302254618648021,
+      'rss': 11020.562895703,
+      'slope': -1370.0601677373925}]
+
+
+
+
 ```python
 m_values = list(map(lambda step: step['m'],descent_steps))
 rss_result_values = list(map(lambda step: step['rss'], descent_steps))
@@ -248,6 +355,10 @@ text_values = list(map(lambda step: 'cost curve slope: ' + str(step['slope']), d
 gradient_trace = trace_values(m_values, rss_result_values, text=text_values)
 plot([gradient_trace])
 ```
+
+
+<div id="a9852204-06a5-4119-9813-fe9cfa803b30" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("a9852204-06a5-4119-9813-fe9cfa803b30", [{"mode": "markers", "name": "data", "text": ["cost curve slope: -548316.9999998063", "cost curve slope: -318023.86000024853", "cost curve slope: -184453.83880040026", "cost curve slope: -106983.22650372575", "cost curve slope: -62050.271372208954", "cost curve slope: -35989.15739588847", "cost curve slope: -20873.711289696075", "cost curve slope: -12106.752547970245", "cost curve slope: -7021.916477824561", "cost curve slope: -4072.711557128059", "cost curve slope: -2362.172703124088", "cost curve slope: -1370.0601677373925"], "x": [0, 0.5483169999998062, 0.8663408600000547, 1.050794698800455, 1.1577779253041809, 1.2198281966763898, 1.2558173540722781, 1.2766910653619743, 1.2887978179099446, 1.295819734387769, 1.299892445944897, 1.302254618648021], "y": [368964.16669999994, 131437.9413767516, 51531.31420747324, 24649.097944855268, 15604.976802103287, 12561.987166284125, 11538.008028425651, 11193.357340315255, 11077.310067278091, 11038.209831325046, 11025.020590634533, 11020.562895703], "type": "scatter", "uid": "c4112ad8-cf3a-11e9-a2af-3af9d3ad3e0b"}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
+
 
 Taking a look at a plot of our trace, you can get a nice visualization of how our gradient descent function works.  It starts far away with $m = 0$, and the step size is relatively large, as is the slope of the cost curve.  As the $m$ value updates such that it approaches a minimum of the RSS, the slope of the cost curve and the size of each step both decrease.     
 
@@ -268,6 +379,14 @@ m_values = list(map(lambda step: step['m'] ,descent_steps))
 regression_traces = list(map(lambda m: m_b_trace(m, 133.33, budgets, name = 'm:' + str(round(m, 2))), m_values))
 plot([data_trace, *regression_traces])
 ```
+
+
+<script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window.Plotly) {{require(['plotly'],function(plotly) {window.Plotly=plotly;});}}</script>
+
+
+
+<div id="96fe5f72-666f-46d3-81ef-17c6dfca6ac3" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("96fe5f72-666f-46d3-81ef-17c6dfca6ac3", [{"mode": "markers", "name": "data", "text": [], "x": [100, 200, 400], "y": [275, 300, 700], "type": "scatter", "uid": "cc1f7b26-cf3a-11e9-979e-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:0", "x": [100, 200, 400], "y": [133.33, 133.33, 133.33], "type": "scatter", "uid": "cc1f7c66-cf3a-11e9-8048-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:0.55", "x": [100, 200, 400], "y": [188.16169999998064, 242.99339999996124, 352.6567999999225], "type": "scatter", "uid": "cc1f7d06-cf3a-11e9-be50-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:0.87", "x": [100, 200, 400], "y": [219.96408600000547, 306.59817200001095, 479.86634400002185], "type": "scatter", "uid": "cc1f7d92-cf3a-11e9-a8ab-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.05", "x": [100, 200, 400], "y": [238.40946988004552, 343.48893976009106, 553.6478795201821], "type": "scatter", "uid": "cc1f7e14-cf3a-11e9-9f8c-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.16", "x": [100, 200, 400], "y": [249.1077925304181, 364.8855850608362, 596.4411701216724], "type": "scatter", "uid": "cc1f7e8c-cf3a-11e9-b65c-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.22", "x": [100, 200, 400], "y": [255.312819667639, 377.295639335278, 621.261278670556], "type": "scatter", "uid": "cc1f7f06-cf3a-11e9-92e8-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.26", "x": [100, 200, 400], "y": [258.9117354072278, 384.49347081445563, 635.6569416289112], "type": "scatter", "uid": "cc1f7f86-cf3a-11e9-b8df-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.28", "x": [100, 200, 400], "y": [260.9991065361975, 388.6682130723949, 644.0064261447898], "type": "scatter", "uid": "cc1f7ff4-cf3a-11e9-a71c-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.29", "x": [100, 200, 400], "y": [262.2097817909945, 391.08956358198895, 648.8491271639779], "type": "scatter", "uid": "cc1f8094-cf3a-11e9-8e4f-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.3", "x": [100, 200, 400], "y": [262.91197343877695, 392.49394687755387, 651.6578937551077], "type": "scatter", "uid": "cc1f810c-cf3a-11e9-ac93-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.3", "x": [100, 200, 400], "y": [263.31924459448976, 393.3084891889795, 653.2869783779589], "type": "scatter", "uid": "cc1f817a-cf3a-11e9-a07c-3af9d3ad3e0b"}, {"mode": "lines", "name": "m:1.3", "x": [100, 200, 400], "y": [263.5554618648021, 393.7809237296042, 654.2318474592084], "type": "scatter", "uid": "cc1f81e8-cf3a-11e9-a61c-3af9d3ad3e0b"}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
+
 
 As you can see the slope converges towards a slope that better matches our data, around m = 1.3.  You can isolate how the line changes clicking on the names of the lines to the right, which toggles the display of the respective lines.
 
