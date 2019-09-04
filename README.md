@@ -166,11 +166,11 @@ slope_at(budgets, revenues, .6, 133.33333333333326)
 slope_at(budgets, revenues, 1.6, 133.33333333333326)
 ```
 
-So the `slope_at` function takes in our dataset, and returns the slope of the cost curve at that point.  So the numbers -296312 and 123877 reflect the slopes at the cost curve when m is .6 and 1.6 respectively.
+So the `slope_at` function takes in our dataset, and returns the slope of the cost curve at that point.  So the numbers -296312.33 and 123687.67 reflect the slopes at the cost curve when m is .6 and 1.6 respectively.
 
 ![](./tangent-lines.png)
 
-As you can see, it seems pretty accurate.  When the curve is steeper and downwards at $m = 6$, the slope is around -290,000.  And at $m = 1.3$ with our cost curve pointing upwards yet flatter, our slope is around 120,000. 
+As you can see, it seems pretty accurate.  When the curve is steeper and downwards at $m = 0.6$, the slope is around -290,000.  And at $m = 1.6$ with our cost curve pointing upwards yet flatter, our slope is around 120,000. 
 
 ### Moving towards gradient descent
 
