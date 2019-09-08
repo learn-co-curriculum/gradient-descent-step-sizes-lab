@@ -7,7 +7,7 @@ In this lab, we'll practice applying gradient descent.  As we know gradient desc
 
 ### Setting up our initial regression line
 
-Once again, we'll take take a look at revenues of movies to predict revenue. 
+Once again, we'll take a look at revenues of movies to predict revenue. 
 
 
 ```python
